@@ -1,3 +1,6 @@
+require 'set'
+
+
 class User
   attr_accessor :name, :connections, :songs
 
@@ -31,9 +34,7 @@ class Network
     
     @users[user1].connections.push(user2)
     @users[user2].connections.push(user1)
-    
-    puts " #{@users[user1].connections.size} #{@users[user1].connections.class}"
-
+   
   end
   
   def add_user_like(name,song)
@@ -46,6 +47,49 @@ class Network
       user.disp
     end
   end
+  
+  
+  def process_queue in_q, out_q, result
+    
+    
+    while not in_q.empty?
+      
+      cur = in_q.pop
+      next unless not result.include? cur
+      
+      result.add cur
+      puts "Processing: #{cur}"
+      cur_user = @users[cur]
+      cur_user.connections.each do |con|
+        out_q << con
+      end
+    end
+  end
+  
+  
+  
+  def return_connections(name, n)
+    q1 = Queue.new
+    q2 = Queue.new
+    
+    result = Set.new
+    q1 << name
+    cnt = 0
+    while n != cnt
+      
+      if (cnt%2==0)
+        process_queue(q1,q2, result)
+      else
+        process_queue(q2,q1, result)
+      end
+      
+      cnt+=1
+    
+    end
+    
+    return result
+  end
+  
   
   
   
@@ -74,14 +118,30 @@ def build_test_network
   net.connect_users("Scott", "Sagan")
   net.connect_users("Sagan", "April")
   net.connect_users("Bob", "Sam")
+  net.connect_users("Bob", "April")
   
   
   return net
 
 end
 
+def disp_s s
+  s.each do |n|
+    puts "NAME: #{n}"
+  end
+end
 
+# MAIN
 net = build_test_network
 net.disp
 
+con_set = net.return_connections("Scott", 2)
+disp_s con_set
+
+
+con_set = net.return_connections("Scott", 3)
+disp_s con_set
+
+con_set = net.return_connections("Scott", 4)
+disp_s con_set
 
