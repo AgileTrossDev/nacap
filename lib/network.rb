@@ -1,25 +1,9 @@
 require 'set'
 
-
-class User
-  attr_accessor :name, :connections, :songs
-
-  def initialize(name)
-    @name = name
-    @connections = []
-    @songs = []
-  end
-  
-  def disp
-    puts "USER: #{@name} | SONGS: #{@song} | Connections: #{@connections}" 
-  end
-end
-  
-
 class Network
   attr_accessor :users
   
-  def initialize ()
+  def initialize 
     @users = {}
   end
   
@@ -34,7 +18,6 @@ class Network
     
     @users[user1].connections.push(user2)
     @users[user2].connections.push(user1)
-   
   end
   
   def add_user_like(name,song)
@@ -48,17 +31,19 @@ class Network
     end
   end
   
+  def are_connected?(user_name_1, user_name_2)
+    return @users[user_name_1].is_connected?(user_name_2)
+  end
   
   def process_queue in_q, out_q, result
-    
-    
+
     while not in_q.empty?
       
       cur = in_q.pop
       next unless not result.include? cur
       
       result.add cur
-      puts "Processing: #{cur}"
+    
       cur_user = @users[cur]
       cur_user.connections.each do |con|
         out_q << con
@@ -66,12 +51,10 @@ class Network
     end
   end
   
-  
-  
   def return_connections(name, n)
     q1 = Queue.new
     q2 = Queue.new
-    
+    n +=1
     result = Set.new
     q1 << name
     cnt = 0
@@ -89,59 +72,9 @@ class Network
     
     return result
   end
-  
-  
-  
-  
 end
 
 
 
- 
-def build_test_network
-  
-   a = User.new("Scott")
-   b = User.new("Bob")
-   c = User.new ("Sam")
-   d = User.new ("April")
-   e = User.new ("Sagan")
-  
-  net = Network.new
-  
-  net.add_user(a)
-  net.add_user(b)
-  net.add_user(c)
-  net.add_user(d)
-  net.add_user(e)
-  
-  net.connect_users("Scott","April")
-  net.connect_users("Scott", "Sagan")
-  net.connect_users("Sagan", "April")
-  net.connect_users("Bob", "Sam")
-  net.connect_users("Bob", "April")
-  
-  
-  return net
 
-end
-
-def disp_s s
-  s.each do |n|
-    puts "NAME: #{n}"
-  end
-end
-
-# MAIN
-net = build_test_network
-net.disp
-
-con_set = net.return_connections("Scott", 2)
-disp_s con_set
-
-
-con_set = net.return_connections("Scott", 3)
-disp_s con_set
-
-con_set = net.return_connections("Scott", 4)
-disp_s con_set
 
