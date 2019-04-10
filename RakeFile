@@ -1,7 +1,7 @@
 require 'rake/testtask'
-
 task default: "test"
 
+desc 'Runs unit tests for the lib'
 Rake::TestTask.new do |t|
   # Include Test and lib directory in path
   $:.unshift 'lib'  
@@ -10,3 +10,10 @@ Rake::TestTask.new do |t|
   t.verbose = true
 end
 
+
+desc 'Launches the cache app'
+task :cache_start do
+    cmd = "cd cache_app && rake serve&"
+    pid = spawn(cmd)
+    Process.detach(pid) 
+end

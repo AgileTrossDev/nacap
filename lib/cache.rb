@@ -12,8 +12,9 @@ class UserCache
     @tracking = []
   end
   
-  # Attempts to pull data from cache, if not query database
+  # Attempts to pull data from cache, if not it will query the backingstore
   # Tracking is updated to reflect latest usage of record
+  # Returns the users data in the form of a hash
   def get (u_name)
     if @data.has_key?(u_name)
       rec = @data[u_name]
@@ -50,7 +51,6 @@ class UserCache
   def next_to_pop
     return @tracking[0]
   end
-  
   
   
   def disp

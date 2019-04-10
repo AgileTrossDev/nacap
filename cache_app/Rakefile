@@ -1,0 +1,5 @@
+desc "Starts the Cache server through rackup."
+task :serve do
+  # TODO: Load port from environment
+  exec("rackup config.ru -p 9000")
+end
