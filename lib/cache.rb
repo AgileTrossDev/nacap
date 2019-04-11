@@ -1,15 +1,20 @@
 #  In memory cache that maintains a limited number of recently used records for quick access.
 #  Relies on a backing store to permentaly store data.
 
+# TODO: Refactor out DB and provide connection at initialization
+
+require 'pg'
+
 class UserCache
   attr_accessor :limit
   
   DataRecord = Struct.new(:user_data, :tracking_index)
   
-  def initialize(l=100)
+  def initialize(data_store, l=100)
     @limit = l
     @data = {}
     @tracking = []
+    @db = data_store
   end
   
   # Attempts to pull data from cache, if not it will query the backingstore
@@ -31,7 +36,7 @@ class UserCache
     if @data.has_key?(user_key)
       # Record exists, so update
       @data[user_key].user_data = u_data
-      @tracking.insert(@data[user_key.tracking_index], array.delete_at(@data[user_key.tracking_index]))
+      @tracking.insert(@data[user_key].tracking_index, @tracking.delete_at(@data[user_key].tracking_index))
     else
       # New Data, so add to hash
       @data[user_key] = DataRecord.new(u_data, @tracking.size)
@@ -45,6 +50,7 @@ class UserCache
     end
     
     # TODO: Update Back STore
+    @db.insert_if_does_not_exist u_data
     
   end
   

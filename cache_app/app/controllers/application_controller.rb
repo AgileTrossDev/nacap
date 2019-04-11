@@ -23,5 +23,7 @@ class ApplicationController < Sinatra::Base
   post '/cache' do
     users = params[:data]
     CacheManager.instance.ingest_array(users)
+    #puts "WE GOOD?"
+    201
   end   
 end
