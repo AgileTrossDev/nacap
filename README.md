@@ -7,8 +7,14 @@ of connections N-Deep that like a set of particular songs because I want to quic
 this collection for other particular user's to research.
 ```
 
+
+
 ## Launch
 
+Notes:
+- Must start Database to use system
+- Cahce App hard-coded to start on port 9000
+- Network Builder App hard-coded to start on port 9001
 ```
 pg_ctl -D /usr/local/var/nacap -l logfile start
 rake cache_start
@@ -34,19 +40,36 @@ advertiser.  A custom algorithm was built to effeciently use the cache service t
 data set.
 
 
-A poorly designed Postgresql Database was defined to serve as the backing store.
+A poorly designed Postgresql Database and data interface layer was defined to serve as the backing store.
 
+## Tools
 
-## Manual Testing
+A custom rest_tool was built to help manually test the system
 
 ```
-ruby rest_tool.rb post http://localhost:9000/cache cache_data/small_set.json 
-ruby rest_tool.rb get http://localhost:9000/cache/scott
+# Posts a small test dataset to the Cache and backing store.
+ruby rest_tool.rb post http://localhost:9000/cache cache_data/small_set.json
+
+# Returns user information about user Scott
+ruby rest_tool.rb get http://localhost:9000/cache/Scott
+
+# Gets the network for User 'Scott', two layers deep
+ruby rest_tool.rb get http://localhost:9001/net/Scott/2
   
 ```
 
 
 ## Database
+The data set being served includes information about Users and Songs.  Users can like multiple Songs and have multiple connections to other Users.
+
+Tables:
+USERS:  user_id, username
+SONGS: song_id, song_tile
+SONG_LIKES: user_id, song_id
+USER_CONNECTIONS: user_id,user_id
+
+
+
 ```
 pg_ctl -D /usr/local/var/nacap -l logfile start
 
