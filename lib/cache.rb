@@ -6,7 +6,7 @@ class UserCache
   
   DataRecord = Struct.new(:user_data, :tracking_index)
   
-  def initialize (l=100)
+  def initialize(l=100)
     @limit = l
     @data = {}
     @tracking = []
@@ -15,7 +15,7 @@ class UserCache
   # Attempts to pull data from cache, if not it will query the backingstore
   # Tracking is updated to reflect latest usage of record
   # Returns the users data in the form of a hash
-  def get (u_name)
+  def get(u_name)
     if @data.has_key?(u_name)
       rec = @data[u_name]
       @tracking.insert(rec.tracking_index, @tracking.delete_at(rec.tracking_index))
@@ -27,7 +27,7 @@ class UserCache
     
   end
   
-  def post (user_key, u_data)
+  def post(user_key, u_data)
     if @data.has_key?(user_key)
       # Record exists, so update
       @data[user_key].user_data = u_data
