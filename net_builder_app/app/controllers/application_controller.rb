@@ -15,11 +15,12 @@ class ApplicationController < Sinatra::Base
   
   get '/net/:name/:depth' do
     puts "GET NET #{params[:name]}, #{params[:depth]}"
-    #user =  CacheManager.instance.get(params[:name])
     
-    user = {"scott" => "Bob"}
+    net = NetBuilder.new
+    res = net.build params[:name], params[:depth]
+    
     content_type :json
-    return 200, user.to_json
+    return 200, res
   end
 
 

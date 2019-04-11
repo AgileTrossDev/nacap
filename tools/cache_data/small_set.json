@@ -1,4 +1,4 @@
-{"data": [{"name": "Scott", "connections": ["April","Sagan"], "songs": ["So What"] },
+{"data": [{"name": "Scott", "connections": ["April","Sagan"], "songs": ["So What", "Dark Star"] },
           {"name": "April", "connections": [], "songs": ["So What"] },
           {"name": "Sagan", "connections": ["April"], "songs": ["So What"] },
           {"name": "Fred", "connections": [], "songs": ["So What"] },

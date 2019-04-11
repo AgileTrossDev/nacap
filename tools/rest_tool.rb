@@ -2,7 +2,6 @@ require 'thor'
 require 'json'
 require 'rest_client'
 
-
  class CLI < Thor
   desc "Welcome", "Greetings"
   def hello

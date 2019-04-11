@@ -1,13 +1,29 @@
 require 'set'
+require_relative 'user'
 
 class Network
   attr_accessor :users
   
-  def initialize 
+  def initialize (query_tool= nil)
     @users = {}
+    @store = query_tool
   end
   
+  def import_user user_name
+    return if has_user(user_name)
+    puts "Importing User"
+    user = @store.query_user(user_name)
+    add_user(user)
+  end
+  
+  def has_user(user_name)
+    return  @users.has_key?(user_name)
+  end
+  
+  
   def add_user(user)
+    puts "ADDING USER: #{user}"
+    user = User.build_user_from_hash(user) unless user.class != Hash
     user = User.new(user) unless  user.class != String
     @users[user.name] = user
   end
@@ -35,15 +51,27 @@ class Network
     return @users[user_name_1].is_connected?(user_name_2)
   end
   
+  
+  # Processes a Queue of names and puts the connections
+  # that still need to be processed on out queue.
+  # The Result set is updated
   def process_queue in_q, out_q, result
 
     while not in_q.empty?
       
       cur = in_q.pop
+      puts "Processing: #{cur} "
       next unless not result.include? cur
-      
-      result.add cur
     
+      # We may need to query the cahce to
+      # to get information about a user
+      import_user cur unless has_user cur
+      
+      # Add Name to result set
+      result.add cur
+      
+      # Now add connections that will need to be processed.
+      puts @users[cur].disp
       cur_user = @users[cur]
       cur_user.connections.each do |con|
         out_q << con
@@ -51,12 +79,25 @@ class Network
     end
   end
   
-  def return_connections(name, n)
+  
+  # Returns the social network in the form of a set for a person that is N-Deep
+  def return_connections(name, n, song_likes=[])
+    
+    
+    # increment to account for root user
+    n = n.to_i unless n.class == Integer
+    n +=1
+    
+    # Queues that hold names of users to be processed.
+    # Seeded with root user
     q1 = Queue.new
     q2 = Queue.new
-    n +=1
-    result = Set.new
     q1 << name
+    
+    # Maintains the final connection
+    result = Set.new
+    
+    # Loops until we are N-Deep
     cnt = 0
     while n != cnt
       
@@ -65,9 +106,7 @@ class Network
       else
         process_queue(q2,q1, result)
       end
-      
       cnt+=1
-    
     end
     
     return result
