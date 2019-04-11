@@ -3,6 +3,12 @@
           {"name": "Sagan", "connections": ["April"], "songs": ["So What"] },
           {"name": "Fred", "connections": [], "songs": ["So What"] },
           {"name": "Bob", "connections": ["Sam","April"], "songs": ["So What"] },
-          {"name": "Sam", "connections": ["Fred"], "songs": ["So What"] }
+          {"name": "Sam", "connections": ["Fred"], "songs": ["So What"] },
+          {"name": "Doug", "connections": ["Bob"], "songs": ["Ace Of Spades"] },
+          {"name": "Drew", "connections": ["Bob"], "songs": ["Dark Star"] },
+          {"name": "Tyson", "connections": ["Bob"], "songs": ["Root Down"] },
+          {"name": "Chris", "connections": ["Bob"], "songs": ["Crazy Train"] },
+          {"name": "Tom", "connections": ["Chris", "Bob"], "songs": ["Particle Man"] },
+          {"name": "Ron", "connections": ["Chris", "Tom"], "songs": ["Big River"] }
           ]}
 

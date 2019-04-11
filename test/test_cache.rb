@@ -1,11 +1,12 @@
 require 'test/unit'
 require 'cache'
 require 'User'
+require 'db_mgr'
 
 class TestCache < Test::Unit::TestCase
   
   def test_cache_nominal_push_get
-    cache = UserCache.new(5)
+    cache = UserCache.new(DbMgr.new('nacap_demo','alberta'), 5)
     for u in ["Scott","Bob","Sam","April","Sagan"]
       tmp = User.new(u)
       cache.post(tmp.name, tmp.to_hash)
@@ -18,7 +19,7 @@ class TestCache < Test::Unit::TestCase
   end
   
   def test_cache_over_flow
-    cache = UserCache.new(5)
+    cache = UserCache.new(DbMgr.new('nacap_demo','alberta'),5)
     
     for u in ["Fred","Scott","Bob","Sam","April","Sagan"]
       tmp = User.new(u)
@@ -45,7 +46,7 @@ class TestCache < Test::Unit::TestCase
   
   ### Helpers ###
   def build_test_cache
-    cache = UserCache.new(5)
+    cache = UserCache.new(DbMgr.new('nacap_demo','alberta'),5)
     for u in ["Scott","Bob","Sam","April","Sagan"]
       tmp = User.new(u)
       cache.post(tmp.name, tmp.to_hash)

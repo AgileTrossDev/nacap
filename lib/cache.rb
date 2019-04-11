@@ -27,7 +27,11 @@ class UserCache
       return rec.user_data
     else
       # QUERY DB
-      raise "TODO"
+      puts ("Querying the database #{@data.has_key?(u_name)} #{@data}")
+      
+      rec = @db.query_for_all_user_data(u_name)
+      post u_name, rec
+      return rec
     end
     
   end
@@ -44,12 +48,14 @@ class UserCache
     end
       
     # Manage the tracking array
-    while (@data.size>@limit)        
+    while (@data.size>@limit)
+      puts "Cleaning..."
+      disp
       @data.delete(@tracking[0])
       @tracking.shift(1)
     end
-    
-    # TODO: Update Back STore
+    disp
+    #Update Back STore
     @db.insert_if_does_not_exist u_data
     
   end

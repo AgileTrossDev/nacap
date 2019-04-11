@@ -11,9 +11,16 @@ Rake::TestTask.new do |t|
 end
 
 
-desc 'Launches the cache app'
+desc 'Launches the Cache App'
 task :cache_start do
     cmd = "cd cache_app && rake serve&"
+    pid = spawn(cmd)
+    Process.detach(pid) 
+end
+
+desc 'Launches the Network Builder App'
+task :net_builder_start do
+    cmd = "cd net_builder_app && rake serve&"
     pid = spawn(cmd)
     Process.detach(pid) 
 end
