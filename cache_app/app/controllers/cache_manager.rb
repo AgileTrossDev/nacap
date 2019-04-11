@@ -30,4 +30,8 @@ class CacheManager
     end
   end
   
+  def disp
+    @cache.disp
+  end
+  
 end

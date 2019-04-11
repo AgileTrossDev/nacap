@@ -15,6 +15,7 @@ class ApplicationController < Sinatra::Base
   
   get '/cache/:name' do
     user =  CacheManager.instance.get(params[:name])
+    CacheManager.instance.disp
     content_type :json
     return 200, user.to_json
   end

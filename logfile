@@ -14,3 +14,7 @@
 2019-04-11 10:24:11.216 MDT [23456] ERROR:  syntax error at or near "select" at character 40
 2019-04-11 10:24:11.216 MDT [23456] STATEMENT:  delete from song_likes where song_id=8
 	select * from song_likes where user_id=1;
+2019-04-11 12:48:05.448 MDT [1073] LOG:  received smart shutdown request
+2019-04-11 12:48:05.448 MDT [1073] LOG:  background worker "logical replication launcher" (PID 1080) exited with exit code 1
+2019-04-11 12:48:05.448 MDT [1075] LOG:  shutting down
+2019-04-11 12:48:05.454 MDT [1073] LOG:  database system is shut down

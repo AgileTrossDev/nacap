@@ -1,0 +1,20 @@
+{"data": [{"name": "Scott", "connections": ["April","Sagan"], "songs": ["So What", "Dark Star"] },
+          {"name": "April", "connections": [], "songs": ["So What"] },
+          {"name": "Sagan", "connections": ["April"], "songs": ["So What"] },
+          {"name": "Fred", "connections": [], "songs": ["So What"] },
+          {"name": "Bob", "connections": ["Sam","April"], "songs": ["So What"] },
+          {"name": "Sam", "connections": ["Fred"], "songs": ["So What"] },
+          {"name": "Doug", "connections": ["Bob"], "songs": ["Ace Of Spades"] },
+          {"name": "Drew", "connections": ["Bob"], "songs": ["Dark Star"] },
+          {"name": "Tyson", "connections": ["Bob"], "songs": ["Root Down"] },
+          {"name": "Chris", "connections": ["Bob"], "songs": ["Crazy Train"] },
+          {"name": "Tom", "connections": ["Chris", "Bob"], "songs": ["Particle Man"] },
+          {"name": "Grant", "connections": ["Fred", "Sagan"], "songs": ["Reba"] },
+          {"name": "Dan", "connections": ["Grant", "Scott"], "songs": ["Free Ride"] },
+          {"name": "TheDude", "connections": ["Walter", "Donnie"], "songs": ["The Man In Me"] },
+          {"name": "Walter", "connections": ["Donnie","Jesse"], "songs": ["Let's Go Bowling"] },
+          {"name": "Donnie", "connections": ["Phil"], "songs": ["Let's Go Bowling"] },
+          {"name": "Phil", "connections": ["Drew"], "songs": ["Hammer Time"] },
+          {"name": "Ron", "connections": ["Chris", "Tom"], "songs": ["Big River"] }
+          ]}
+
