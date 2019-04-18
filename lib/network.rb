@@ -54,13 +54,13 @@ class Network
   
   # Processes a Queue of names and puts the connections
   # that still need to be processed on out queue.
-  # The Result set is updated
-  def process_queue in_q, out_q, result
+  # The Result set is updated when
+  def process_queue in_q, out_q, result, n ,cnt, exclude
 
     while not in_q.empty?
       
       cur = in_q.pop
-      puts "Processing: #{cur} "
+      #puts "Processing: #{cur} "
       next unless not result.include? cur
     
       # We may need to query the cahce to
@@ -68,25 +68,29 @@ class Network
       import_user cur unless has_user cur
       
       # Add Name to result set
-      result.add cur
+      puts "#{n} #{cnt}  #{cur}"
       
-      # Now add connections that will need to be processed.
-      puts @users[cur].disp
-      cur_user = @users[cur]
-      cur_user.connections.each do |con|
-        out_q << con
+      if (n==cnt)
+        # Found the level we are looking for, so add to results
+        result.add cur unless exclude.include?(cur)
+      else 
+        # Adding connections that will need to be processed.
+        #puts @users[cur].disp
+        exclude.add cur
+        cur_user = @users[cur]
+        cur_user.connections.each do |con|
+          out_q << con
+        end
       end
     end
   end
   
   
-  # Returns the social network in the form of a set for a person that is N-Deep
+  # Returns the members linked to a user of N-Deep into a social
+  # network in the form of a Set 
   def return_connections(name, n, song_likes=[])
-    
-    
-    # increment to account for root user
+
     n = n.to_i unless n.class == Integer
-    n +=1
     
     # Queues that hold names of users to be processed.
     # Seeded with root user
@@ -96,15 +100,15 @@ class Network
     
     # Maintains the final connection
     result = Set.new
+    exclude = Set.new
     
     # Loops until we are N-Deep
     cnt = 0
     while n != cnt
-      
       if (cnt%2==0)
-        process_queue(q1,q2, result)
+        process_queue(q1,q2, result, n-1, cnt,exclude)
       else
-        process_queue(q2,q1, result)
+        process_queue(q2,q1, result, n-1 ,cnt,exclude)
       end
       cnt+=1
     end

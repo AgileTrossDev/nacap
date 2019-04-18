@@ -1,13 +1,11 @@
 #  NACAP - Not Another Coding Assignment for a Portfolio
-This system consists of two microservices and a Postgresql database.  It attempts to solve this fictional problem:
+This system consists of two microservices and a Postgresql database.  It attempts to solve this fictional user story:
 
 ```
 As an advertiser on a social media network I want to quickly find members of a user's network
-of connections N-Deep that like a set of particular songs because I want to quickly mine
+at connections N-Deep that like a set of particular songs because I want to quickly mine
 this collection for other particular user's to research.
 ```
-
-
 
 ## Launch
 
@@ -21,8 +19,6 @@ rake cache_start
 rake net_builder_start
 
 ```
-
-
 
 ## Design Decisions
 The data needed to be served with a RESTful interface.  Since Social Network's tend to be rather large,

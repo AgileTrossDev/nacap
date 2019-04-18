@@ -53,12 +53,32 @@ class TestNetwork < Test::Unit::TestCase
     net = build_test_network
     
     # Request connections 2-layer deeps from Scott
-    con_set = net.return_connections("Scott", 2)
-
+    con_set = net.return_connections("Scott", 1)
     assert con_set.include? "Scott"
+    puts "----"
+    disp_s con_set
+    puts "----"
+    
+    con_set = net.return_connections("Scott", 2)
+    puts "----"
+    disp_s con_set
+    puts "----"
     assert con_set.include? "April"
     assert con_set.include? "Sagan"
+    
+    
+    con_set = net.return_connections("Scott", 3)
+    puts "----"
+    disp_s con_set
+    puts "----"
+
+    #assert con_set.include? "Scott"
+    #assert con_set.include? "April"
+    #assert con_set.include? "Sagan"
     assert con_set.include? "Bob"
+     assert false ==  con_set.include?("April")
+    assert false ==  con_set.include?("Sagan")
+    assert false ==  con_set.include?("Scott")
     assert false ==  con_set.include?("Fred")
     assert false ==  con_set.include?("Sam")
     
@@ -93,22 +113,3 @@ class TestNetwork < Test::Unit::TestCase
   
   
 end
-
-
-
-
-
-
-
-### MAIN ####
-
-#con_set = net.return_connections("Scott", 2)
-#disp_s con_set
-#
-#
-#con_set = net.return_connections("Scott", 3)
-#disp_s con_set
-#
-#con_set = net.return_connections("Scott", 4)
-#disp_s con_set
-
