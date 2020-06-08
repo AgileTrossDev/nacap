@@ -4,7 +4,7 @@ GEM
     mustermann (1.0.3)
     pg (0.20.0)
     puma (3.9.1)
-    rack (2.0.7)
+    rack (2.2.2)
     rack-protection (2.0.5)
       rack
     require_all (2.0.0)
