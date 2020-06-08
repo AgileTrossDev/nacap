@@ -11,7 +11,7 @@ this collection for other particular user's to research.
 
 Notes:
 - Must start Database to use system
-- Cahce App hard-coded to start on port 9000
+- Cache App hard-coded to start on port 9000
 - Network Builder App hard-coded to start on port 9001
 ```
 pg_ctl -D /usr/local/var/nacap -l logfile start
