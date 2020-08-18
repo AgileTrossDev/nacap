@@ -1,5 +1,5 @@
 #  NACAP - Not Another Coding Assignment for a Portfolio
-This system consists of two microservices and a Postgresql database.  It attempts to solve this fictional user story:
+This system consists of two microservices and a Postgresql database.  It attempts to solve this fictional user story using RESTful interaces utilizing a LRU Algorithm.
 
 ```
 As an advertiser on a social media network I want to quickly find members of a user's network
