@@ -2,8 +2,10 @@ GEM
   remote: https://rubygems.org/
   specs:
     mustermann (1.0.3)
+    nio4r (2.5.8)
     pg (0.20.0)
-    puma (3.9.1)
+    puma (4.3.12)
+      nio4r (~> 2.0)
     rack (2.0.7)
     rack-protection (2.0.5)
       rack
