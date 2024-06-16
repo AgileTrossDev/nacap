@@ -251,10 +251,14 @@ class DbMgr
   
   def query_for_user_data user_name
     begin
+      # TODO: Better management of Connection, keep open and only open if necessary
       con = PG.connect :dbname => @db_name, :user => @db_user 
       con.prepare 'stm1', "SELECT user_id, username FROM users WHERE username=$1"
       
       rs = con.exec_prepared 'stm1', [user_name]
+      
+      #TODO: Check results
+
       puts "USER NAME: #{user_name} #{rs[0]}"
       
       results = {}
@@ -265,9 +269,10 @@ class DbMgr
     
     rescue PG::Error => e
       puts e.message 
+      # TODO: Be clear about what is being returned
     ensure
-         rs.clear if rs
-       con.close if con
+      rs.clear if rs
+      con.close if con
     end
     
   end

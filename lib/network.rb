@@ -11,7 +11,6 @@ class Network
   
   def import_user user_name
     return if has_user(user_name)
-    puts "Importing User"
     user = @store.query_user(user_name)
     add_user(user)
   end
@@ -22,7 +21,6 @@ class Network
   
   
   def add_user(user)
-    puts "ADDING USER: #{user}"
     user = User.build_user_from_hash(user) unless user.class != Hash
     user = User.new(user) unless  user.class != String
     @users[user.name] = user
